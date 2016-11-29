@@ -10,6 +10,8 @@ services:
       ES_JAVA_OPTS: "-Xms1g -Xmx1g"
     networks:
       - docker_elk
+    restart: unless-stopped
+
   logstash:
     build: logstash/
     command: -f /etc/logstash/conf.d/
@@ -23,6 +25,8 @@ services:
       - docker_elk
     depends_on:
       - elasticsearch
+    restart: unless-stopped
+
   kibana:
     build: kibana/
     volumes:
@@ -33,6 +37,8 @@ services:
       - docker_elk
     depends_on:
       - elasticsearch
+    restart: unless-stopped
+
   filebeat:
     build: filebeat/
     volumes:
@@ -42,6 +48,8 @@ services:
       - docker_elk
     depends_on:
       - elasticsearch
+    restart: unless-stopped
+
 
 networks:
   docker_elk:
